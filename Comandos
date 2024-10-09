@@ -1,0 +1,5 @@
+git add .
+git commit -m "miprimerfichero"
+
+git push origin main //subir archivo
+git pull origin main //cargar archivo
