@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ContactList {
-    private ArrayList<Contact> contacts;
+public class Agenda {
+    private ArrayList<String> contacts;
     private Scanner scanner;
 
-    public ContactList() {
+    public Agenda() {
         this.contacts = new ArrayList<>();
         this.scanner = new Scanner(System.in);
     }
@@ -15,9 +15,8 @@ public class ContactList {
             System.out.println("Contact List Menu:");
             System.out.println("1. Display Contacts");
             System.out.println("2. Add Contact");
-            System.out.println("3. Modify Contact");
-            System.out.println("4. Delete Contact");
-            System.out.println("5. Exit");
+            System.out.println("3. Delete Contact");
+            System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
 
@@ -29,12 +28,9 @@ public class ContactList {
                     addContact();
                     break;
                 case 3:
-                    modifyContact();
-                    break;
-                case 4:
                     deleteContact();
                     break;
-                case 5:
+                case 4:
                     System.out.println("Goodbye!");
                     return;
                 default:
@@ -45,47 +41,26 @@ public class ContactList {
 
     private void displayContacts() {
         System.out.println("Contacts:");
-        for (Contact contact : contacts) {
-            System.out.println(contact.getName() + " - " + contact.getPhoneNumber());
+        for (String contact : contacts) {
+            System.out.println(contact);
         }
     }
 
     private void addContact() {
-        System.out.print("Enter name: ");
-        String name = scanner.next();
-        System.out.print("Enter phone number: ");
-        String phoneNumber = scanner.next();
-        Contact contact = new Contact(name, phoneNumber);
+        System.out.print("Enter contact: ");
+        String contact = scanner.next();
         contacts.add(contact);
         System.out.println("Contact added successfully!");
     }
 
-    private void modifyContact() {
-        System.out.print("Enter name of contact to modify: ");
-        String name = scanner.next();
-        for (Contact contact : contacts) {
-            if (contact.getName().equals(name)) {
-                System.out.print("Enter new phone number: ");
-                String phoneNumber = scanner.next();
-                contact.setPhoneNumber(phoneNumber);
-                System.out.println("Contact modified successfully!");
-                return;
-            }
-        }
-        System.out.println("Contact not found.");
-    }
-
     private void deleteContact() {
-        System.out.print("Enter name of contact to delete: ");
-        String name = scanner.next();
-        for (Contact contact : contacts) {
-            if (contact.getName().equals(name)) {
-                contacts.remove(contact);
-                System.out.println("Contact deleted successfully!");
-                return;
-            }
+        System.out.print("Enter contact to delete: ");
+        String contact = scanner.next();
+        if (contacts.remove(contact)) {
+            System.out.println("Contact deleted successfully!");
+        } else {
+            System.out.println("Contact not found.");
         }
-        System.out.println("Contact not found.");
     }
 
     public static void main(String[] args) {
@@ -93,26 +68,3 @@ public class ContactList {
         contactList.run();
     }
 }
-
-class Contact {
-    private String name;
-    private String phoneNumber;
-
-    public Contact(String name, String phoneNumber) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-}
-
